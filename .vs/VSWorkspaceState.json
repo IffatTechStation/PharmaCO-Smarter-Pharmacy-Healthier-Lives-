@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\PharmaCO",
+    "\\PharmaCO\\PharmaCO",
+    "\\PharmaCO\\PharmaCO\\Controllers",
+    "\\PharmaCO\\PharmaCO\\Views",
+    "\\PharmaCO\\PharmaCO\\Views\\Shared"
+  ],
+  "SelectedNode": "\\PharmaCO\\PharmaCO\\Controllers\\ManageController.cs",
+  "PreviewInSolutionExplorer": false
+}

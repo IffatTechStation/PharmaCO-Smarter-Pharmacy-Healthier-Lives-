@@ -1,0 +1,72 @@
+﻿@model PharmaCO.ViewModels.OrderViewModel
+@{
+    ViewBag.Title = "Order Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Func<decimal?, string> formatTaka = v => v.HasValue ? String.Format("৳{0:N2}", v.Value) : "-";
+    decimal grandTotal = Model?.Items != null && Model.Items.Any() ? Model.Items.Sum(i => (decimal?)i.TotalPrice ?? 0m) : 0m;
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-start mb-2">
+        <h2>Order Details</h2>
+    </div>
+
+    <a class="btn btn-secondary mb-3" href="@Url.Action("Index","Order")">Back to Orders</a>
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Order #@Model.OrderId</h5>
+            <p><strong>Customer:</strong> @Model.CustomerName</p>
+            <p><strong>Order Date:</strong> @(Model.OrderDate != null ? Model.OrderDate.ToString("dd/MM/yyyy") : "-")</p>
+        </div>
+    </div>
+
+    <h5>Order Items</h5>
+    <div class="table-responsive">
+        <table class="table table-bordered align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Medicine</th>
+                    <th>Qty</th>
+                    <th>Unit Price</th>
+                    <th>Total</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Items != null && Model.Items.Any())
+                {
+                    foreach (var it in Model.Items)
+                    {
+                        <tr>
+                            <td>@it.MedicineName</td>
+                            <td>@it.Quantity</td>
+                            <td>@formatTaka(it.UnitPrice)</td>
+                            <td>@formatTaka(it.TotalPrice)</td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(it.ImagePath))
+                                {
+                                    <img src="@Url.Content(it.ImagePath)" alt="@it.MedicineName" style="width:60px;height:60px;object-fit:contain;border:1px solid #ddd;padding:2px;border-radius:4px;" loading="lazy" decoding="async" />
+                                }
+                                else
+                                {
+                                    <span class="text-muted">No image</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="5" class="text-center text-muted">No items in this order</td></tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-end"><strong>Grand Total</strong></td>
+                    <td colspan="2"><strong>@formatTaka(grandTotal)</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

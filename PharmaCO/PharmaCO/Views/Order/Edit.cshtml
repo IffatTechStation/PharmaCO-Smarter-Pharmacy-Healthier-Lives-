@@ -1,0 +1,253 @@
+﻿@model PharmaCO.ViewModels.OrderViewModel
+@{
+    ViewBag.Title = "Edit Order";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var medInfoJson = ViewBag.MedicineInfo ?? "{}";
+}
+
+<div class="container mt-4">
+    <h2>Edit Order</h2>
+    <a class="btn btn-secondary mb-3" href="@Url.Action("Index","Order")">Back</a>
+
+    @using (Html.BeginForm("Edit", "Order", FormMethod.Post, new { id = "orderForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.OrderId)
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label>Customer</label>
+                @Html.TextBox("CustomerName", null, new { @class = "form-control", id = "customerInput", placeholder = "Type customer name..." })
+                @Html.HiddenFor(m => m.CustomerId, new { id = "CustomerId" })
+                @Html.ValidationMessageFor(m => m.CustomerId, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-3">
+                <label>Order Date</label>
+                @Html.TextBoxFor(m => m.OrderDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                @Html.ValidationMessageFor(m => m.OrderDate, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-3 d-flex align-items-center">
+                <div class="form-check mt-4">
+                    @Html.CheckBoxFor(m => m.IsPaid, new { @class = "form-check-input" })
+                    @Html.LabelFor(m => m.IsPaid, "Paid?", new { @class = "form-check-label" })
+                </div>
+            </div>
+        </div>
+
+        <h5>Order Items</h5>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="itemsTable">
+                <thead class="table-light">
+                    <tr>
+                        <th>Medicine</th>
+                        <th style="width:110px">Qty</th>
+                        <th style="width:140px">Unit Price</th>
+                        <th style="width:140px">Total</th>
+                        <th style="width:80px">Image</th>
+                        <th style="width:100px"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model.Items != null && Model.Items.Any())
+                    {
+                        for (int i = 0; i < Model.Items.Count; i++)
+                        {
+                            ViewData["Index"] = i;
+                            @Html.Partial("_OrderItemRow", Model.Items[i])
+                        }
+                    }
+                    else
+                    {
+                        ViewData["Index"] = 0;
+                        var empty = new PharmaCO.ViewModels.OrderItemViewModel { Quantity = 1 };
+                        @Html.Partial("_OrderItemRow", empty)
+                    }
+                </tbody>
+
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-end align-middle"><strong>Grand Total</strong></td>
+                        <td class="align-middle">
+                            <input id="grandTotal" name="GrandTotalDisplay" type="text" class="form-control" readonly value="৳ 0.00" />
+                            <input type="hidden" id="GrandTotal" name="GrandTotal" value="0.00" />
+                        </td>
+                        <td colspan="2"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="mb-3 d-flex gap-2">
+            <button type="button" id="addRowBtn" class="btn btn-secondary">Add Product</button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+    }
+</div>
+@section Scripts {
+    <script>
+    (function () {
+        var searchCustomersUrl = '@Url.Action("SearchCustomers","Order")';
+        var searchMedicinesUrl = '@Url.Action("SearchMedicines","Order")';
+        var getItemRowUrl = '@Url.Action("GetItemRow","Order")';
+
+        var medInfo = @Html.Raw(ViewBag.MedInfoJson ?? "{}");
+
+        function parseCurrencyToNumber(text) {
+            if (!text) return 0;
+            var cleaned = String(text).replace(/[^\d\.\-]/g, '');
+            var n = parseFloat(cleaned);
+            return isNaN(n) ? 0 : n;
+        }
+        function formatTaka(n) { return '৳ ' + Number(n || 0).toFixed(2); }
+
+        var itemsTable = document.getElementById('itemsTable');
+        var grandTotalEl = document.getElementById('grandTotal');
+        var grandTotalHidden = document.getElementById('GrandTotal');
+
+        // --- Customer autocomplete ---
+        $("#customerInput").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: searchCustomersUrl,
+                    data: { term: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.label, value: item.value, id: item.id };
+                        }));
+                    }
+                });
+            },
+            minLength: 1,
+            select: function (event, ui) {
+                $("#customerInput").val(ui.item.label);
+                $("#CustomerId").val(ui.item.id);
+            }
+        });
+
+        // --- Medicine autocomplete ---
+        $(document).on('focus', '.medicine-input', function () {
+            var el = this;
+            if (!$(el).data('ui-autocomplete')) {
+                $(el).autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: searchMedicinesUrl,
+                            data: { term: request.term },
+                            success: function (data) {
+                                response($.map(data, function (item) {
+                                    return {
+                                        label: item.label,
+                                        value: item.label,
+                                        id: item.id,
+                                        price: item.price,
+                                        imagePath: item.imagePath
+                                    };
+                                }));
+                            }
+                        });
+                    },
+                    minLength: 1,
+                    select: function (event, ui) {
+                        var $row = $(this).closest('tr');
+                        $row.find('.medicine-id').val(ui.item.id);
+                        $row.find('.unit-price').val(formatTaka(ui.item.price));
+                        $row.find('.unit-price-hidden').val(ui.item.price.toFixed(2));
+                        var qty = parseInt($row.find('.qty-input').val()) || 1;
+                        var total = ui.item.price * qty;
+                        $row.find('.total-price').val(formatTaka(total));
+                        $row.find('.total-hidden').val(total.toFixed(2));
+                        var img = $row.find('.img-preview');
+                        if (ui.item.imagePath) {
+                            img.attr('src', ui.item.imagePath).show();
+                        } else {
+                            img.hide();
+                        }
+                        updateGrandTotal();
+                    }
+                });
+            }
+        });
+
+        // --- Add new row ---
+        $("#addRowBtn").on("click", function () {
+            $.get(getItemRowUrl, { index: $("#itemsTable tbody tr").length }, function (html) {
+                $("#itemsTable tbody").append(html);
+                var newRow = $("#itemsTable tbody tr").last()[0];
+                initRow(newRow);
+            });
+        });
+
+        // --- Totals ---
+        function updateRowTotals(row) {
+            if (!row) return;
+            var qtyEl = row.querySelector('.qty-input');
+            var unitHidden = row.querySelector('input[name$=".UnitPrice"]') || row.querySelector('.unit-price-hidden');
+            var unitDisplay = row.querySelector('.unit-price');
+            var totalDisplay = row.querySelector('.total-price');
+            var totalHidden = row.querySelector('input[name$=".TotalPrice"]') || row.querySelector('.total-hidden');
+
+            var qty = parseInt(qtyEl && qtyEl.value) || 0;
+            var unit = 0;
+            if (unitHidden && unitHidden.value) unit = parseFloat(unitHidden.value) || 0;
+            else if (unitDisplay && unitDisplay.value) unit = parseCurrencyToNumber(unitDisplay.value);
+
+            var total = qty * unit;
+            if (totalDisplay) totalDisplay.value = formatTaka(total);
+            if (totalHidden) totalHidden.value = total.toFixed(2);
+        }
+
+        function updateGrandTotal() {
+            var total = 0;
+            if (!itemsTable) return;
+            var rows = itemsTable.querySelectorAll('tbody tr');
+            rows.forEach(function (row) {
+                var th = row.querySelector('input[name$=".TotalPrice"]') || row.querySelector('.total-hidden');
+                if (th && th.value) total += parseFloat(th.value) || 0;
+                else {
+                    var td = row.querySelector('.total-price');
+                    if (td && td.value) total += parseCurrencyToNumber(td.value);
+                }
+            });
+            if (grandTotalEl) grandTotalEl.value = formatTaka(total);
+            if (grandTotalHidden) grandTotalHidden.value = total.toFixed(2);
+        }
+
+        function initRow(row) {
+            if (!row) return;
+            var qty = row.querySelector('.qty-input');
+            if (qty && (!qty.value || qty.value === '0')) qty.value = 1;
+            var img = row.querySelector('.img-preview');
+            if (img) {
+                var src = img.getAttribute('src') || '';
+                if (!src || src.indexOf('no-image') !== -1) img.style.display = 'none';
+                else img.style.display = '';
+            }
+            updateRowTotals(row);
+        }
+        // --- Remove row ---
+        $(document).on("click", ".remove-row", function () {
+            var $row = $(this).closest("tr");
+            $row.remove();
+            updateGrandTotal();
+        });
+
+
+        // initialize all rows on page load
+        document.querySelectorAll("#itemsTable tbody tr").forEach(function (row) {
+            initRow(row);
+        });
+
+        // qty change event
+        document.addEventListener('input', function (e) {
+            if (e.target && e.target.classList.contains('qty-input')) {
+                var row = e.target.closest('tr');
+                updateRowTotals(row);
+                updateGrandTotal();
+            }
+        });
+    })();
+    </script>
+}

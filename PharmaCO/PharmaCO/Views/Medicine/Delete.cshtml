@@ -1,0 +1,64 @@
+﻿@model PharmaCO.Models.Medicine
+@{
+    ViewBag.Title = "Delete Medicine";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    bool isExpired = Model?.ExpiryDate != null && Model.ExpiryDate < DateTime.Today;
+    string priceText = Model != null ? String.Format("{0:C}", Model.Price) : "-";
+    string imageUrl = Model != null && !string.IsNullOrEmpty(Model.ImagePath) ? Url.Content(Model.ImagePath) : null;
+}
+
+<h2 class="mb-3 text-danger">🗑️ Delete Medicine</h2>
+
+<div class="alert alert-danger fw-semibold">
+    ⚠️ Are you sure you want to delete this medicine? This action cannot be undone.
+</div>
+
+<div class="gallery-item shadow-lg rounded overflow-hidden mb-3" style="max-width:28rem;">
+    <!-- Image -->
+    <div class="image-container position-relative">
+        @if (!string.IsNullOrEmpty(imageUrl))
+        {
+            <img src="@imageUrl" alt="@Model.Name" class="w-100" style="max-height:220px; object-fit:cover;" />
+        }
+        else
+        {
+            <div class="d-flex align-items-center justify-content-center bg-light" style="height:220px;">
+                <span class="text-muted">No Image Available</span>
+            </div>
+        }
+
+        <!-- Overlay badges -->
+        <div class="position-absolute top-0 end-0 p-2">
+            @if (isExpired)
+            {
+                <span class="badge bg-warning text-dark me-1">⏳ Expired</span>
+            }
+            @if (Model.Stock < 10)
+            {
+                <span class="badge bg-danger">⚠️ Low Stock</span>
+            }
+        </div>
+    </div>
+
+    <!-- Details -->
+    <div class="p-3">
+        <h4 class="fw-bold mb-2">@Model.Name</h4>
+        <p class="mb-1"><strong>Company:</strong> @Model.CompanyName</p>
+        <p class="mb-1"><strong>Category:</strong> @Model.Category</p>
+        <p class="mb-1"><strong>Price:</strong> @priceText</p>
+        <p class="mb-1"><strong>Stock:</strong> @Model.Stock</p>
+        <p class="mb-1"><strong>Expiry:</strong> @Model.ExpiryDate.ToString("yyyy-MM-dd")</p>
+        <p class="text-muted"><strong>Medicine ID:</strong> @Model.MedicineId</p>
+    </div>
+</div>
+
+@using (Html.BeginForm("Delete", "Medicine", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.MedicineId)
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-danger px-4">🗑️ Confirm Delete</button>
+        @Html.ActionLink("⬅ Cancel & Back", "Index", null, new { @class = "btn btn-secondary px-4" })
+    </div>
+}

@@ -1,0 +1,232 @@
+D:\PharmaCO\PharmaCO\bin\PharmaCO.dll.config
+D:\PharmaCO\PharmaCO\bin\PharmaCO.dll
+D:\PharmaCO\PharmaCO\bin\PharmaCO.pdb
+D:\PharmaCO\PharmaCO\bin\roslyn\csc.exe
+D:\PharmaCO\PharmaCO\bin\roslyn\csc.exe.config
+D:\PharmaCO\PharmaCO\bin\roslyn\csc.rsp
+D:\PharmaCO\PharmaCO\bin\roslyn\csi.exe
+D:\PharmaCO\PharmaCO\bin\roslyn\csi.exe.config
+D:\PharmaCO\PharmaCO\bin\roslyn\csi.rsp
+D:\PharmaCO\PharmaCO\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\PharmaCO\PharmaCO\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\Microsoft.Managed.Core.targets
+D:\PharmaCO\PharmaCO\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\PharmaCO\PharmaCO\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.AppContext.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.Collections.Immutable.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.Console.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.Globalization.Calendars.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.IO.Compression.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.IO.Compression.ZipFile.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.IO.FileSystem.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.Net.Http.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.Net.Sockets.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.Reflection.Metadata.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.ValueTuple.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.Xml.XmlDocument.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.Xml.XPath.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\PharmaCO\PharmaCO\bin\roslyn\vbc.exe
+D:\PharmaCO\PharmaCO\bin\roslyn\vbc.exe.config
+D:\PharmaCO\PharmaCO\bin\roslyn\vbc.rsp
+D:\PharmaCO\PharmaCO\bin\roslyn\VBCSCompiler.exe
+D:\PharmaCO\PharmaCO\bin\roslyn\VBCSCompiler.exe.config
+D:\PharmaCO\PharmaCO\bin\Antlr3.Runtime.dll
+D:\PharmaCO\PharmaCO\bin\EntityFramework.dll
+D:\PharmaCO\PharmaCO\bin\EntityFramework.SqlServer.dll
+D:\PharmaCO\PharmaCO\bin\Microsoft.AspNet.Identity.Core.dll
+D:\PharmaCO\PharmaCO\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\PharmaCO\PharmaCO\bin\Microsoft.AspNet.Identity.Owin.dll
+D:\PharmaCO\PharmaCO\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\PharmaCO\PharmaCO\bin\Microsoft.Owin.dll
+D:\PharmaCO\PharmaCO\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.Cookies.dll
+D:\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.dll
+D:\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.Facebook.dll
+D:\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.Google.dll
+D:\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+D:\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.OAuth.dll
+D:\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.Twitter.dll
+D:\PharmaCO\PharmaCO\bin\Microsoft.Web.Infrastructure.dll
+D:\PharmaCO\PharmaCO\bin\Newtonsoft.Json.dll
+D:\PharmaCO\PharmaCO\bin\Owin.dll
+D:\PharmaCO\PharmaCO\bin\PagedList.dll
+D:\PharmaCO\PharmaCO\bin\PagedList.Mvc.dll
+D:\PharmaCO\PharmaCO\bin\Rotativa.dll
+D:\PharmaCO\PharmaCO\bin\System.Web.Helpers.dll
+D:\PharmaCO\PharmaCO\bin\System.Web.Mvc.dll
+D:\PharmaCO\PharmaCO\bin\System.Web.Optimization.dll
+D:\PharmaCO\PharmaCO\bin\System.Web.Razor.dll
+D:\PharmaCO\PharmaCO\bin\System.Web.WebPages.Deployment.dll
+D:\PharmaCO\PharmaCO\bin\System.Web.WebPages.dll
+D:\PharmaCO\PharmaCO\bin\System.Web.WebPages.Razor.dll
+D:\PharmaCO\PharmaCO\bin\WebGrease.dll
+D:\PharmaCO\PharmaCO\bin\EntityFramework.xml
+D:\PharmaCO\PharmaCO\bin\EntityFramework.SqlServer.xml
+D:\PharmaCO\PharmaCO\bin\PagedList.xml
+D:\PharmaCO\PharmaCO\bin\PagedList.Mvc.xml
+D:\PharmaCO\PharmaCO\bin\System.Web.Helpers.xml
+D:\PharmaCO\PharmaCO\bin\System.Web.Mvc.xml
+D:\PharmaCO\PharmaCO\bin\System.Web.Optimization.xml
+D:\PharmaCO\PharmaCO\bin\System.Web.Razor.xml
+D:\PharmaCO\PharmaCO\bin\System.Web.WebPages.xml
+D:\PharmaCO\PharmaCO\bin\System.Web.WebPages.Deployment.xml
+D:\PharmaCO\PharmaCO\bin\System.Web.WebPages.Razor.xml
+D:\PharmaCO\PharmaCO\bin\Newtonsoft.Json.xml
+D:\PharmaCO\PharmaCO\bin\Antlr3.Runtime.pdb
+D:\PharmaCO\PharmaCO\bin\Microsoft.AspNet.Identity.Core.xml
+D:\PharmaCO\PharmaCO\bin\Microsoft.AspNet.Identity.Owin.xml
+D:\PharmaCO\PharmaCO\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\PharmaCO\PharmaCO\bin\Microsoft.Owin.xml
+D:\PharmaCO\PharmaCO\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.xml
+D:\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.Facebook.xml
+D:\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.Cookies.xml
+D:\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.Google.xml
+D:\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.Twitter.xml
+D:\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+D:\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.OAuth.xml
+D:\PharmaCO\PharmaCO\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\PharmaCO\PharmaCO\obj\Debug\PharmaCO.csproj.AssemblyReference.cache
+D:\PharmaCO\PharmaCO\obj\Debug\PharmaCO.Migrations.InitialCreate.resources
+D:\PharmaCO\PharmaCO\obj\Debug\PharmaCO.csproj.GenerateResource.cache
+D:\PharmaCO\PharmaCO\obj\Debug\PharmaCO.csproj.CoreCompileInputs.cache
+D:\PharmaCO\PharmaCO\obj\Debug\PharmaCO.csproj.Up2Date
+D:\PharmaCO\PharmaCO\obj\Debug\PharmaCO.dll
+D:\PharmaCO\PharmaCO\obj\Debug\PharmaCO.pdb
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\PharmaCO.dll.config
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\PharmaCO.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\PharmaCO.pdb
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\csc.exe
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\csc.exe.config
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\csc.rsp
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\csi.exe
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\csi.exe.config
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\csi.rsp
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\Microsoft.Managed.Core.targets
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.AppContext.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.Collections.Immutable.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.Console.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.Globalization.Calendars.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.IO.Compression.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.IO.Compression.ZipFile.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.IO.FileSystem.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.Net.Http.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.Net.Sockets.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.Reflection.Metadata.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.ValueTuple.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.Xml.XmlDocument.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.Xml.XPath.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\vbc.exe
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\vbc.exe.config
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\vbc.rsp
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\VBCSCompiler.exe
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\roslyn\VBCSCompiler.exe.config
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Antlr3.Runtime.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\EntityFramework.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\EntityFramework.SqlServer.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.AspNet.Identity.Core.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.AspNet.Identity.Owin.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.Owin.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.Cookies.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.Facebook.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.Google.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.OAuth.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.Twitter.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.Web.Infrastructure.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Newtonsoft.Json.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Owin.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\PagedList.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\PagedList.Mvc.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Rotativa.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\System.Web.Helpers.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\System.Web.Mvc.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\System.Web.Optimization.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\System.Web.Razor.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\System.Web.WebPages.Deployment.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\System.Web.WebPages.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\System.Web.WebPages.Razor.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\WebGrease.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\EntityFramework.xml
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\EntityFramework.SqlServer.xml
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\PagedList.xml
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\PagedList.Mvc.xml
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\System.Web.Helpers.xml
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\System.Web.Mvc.xml
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\System.Web.Optimization.xml
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\System.Web.Razor.xml
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\System.Web.WebPages.xml
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\System.Web.WebPages.Deployment.xml
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\System.Web.WebPages.Razor.xml
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Newtonsoft.Json.xml
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Antlr3.Runtime.pdb
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.AspNet.Identity.Core.xml
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.AspNet.Identity.Owin.xml
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.Owin.xml
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.xml
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.Facebook.xml
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.Cookies.xml
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.Google.xml
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.Twitter.xml
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.Owin.Security.OAuth.xml
+D:\PharmaCO (2)\PharmaCO\PharmaCO\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\PharmaCO (2)\PharmaCO\PharmaCO\obj\Debug\PharmaCO.csproj.AssemblyReference.cache
+D:\PharmaCO (2)\PharmaCO\PharmaCO\obj\Debug\PharmaCO.Migrations.InitialCreate.resources
+D:\PharmaCO (2)\PharmaCO\PharmaCO\obj\Debug\PharmaCO.Migrations.AddCompanyNameToMedicine.resources
+D:\PharmaCO (2)\PharmaCO\PharmaCO\obj\Debug\PharmaCO.Migrations.AddIsPaidToOrders.resources
+D:\PharmaCO (2)\PharmaCO\PharmaCO\obj\Debug\PharmaCO.csproj.GenerateResource.cache
+D:\PharmaCO (2)\PharmaCO\PharmaCO\obj\Debug\PharmaCO.csproj.CoreCompileInputs.cache
+D:\PharmaCO (2)\PharmaCO\PharmaCO\obj\Debug\PharmaCO.csproj.Up2Date
+D:\PharmaCO (2)\PharmaCO\PharmaCO\obj\Debug\PharmaCO.dll
+D:\PharmaCO (2)\PharmaCO\PharmaCO\obj\Debug\PharmaCO.pdb

@@ -1,0 +1,88 @@
+﻿@model PharmaCO.Models.Medicine
+@{
+    ViewBag.Title = "Edit Medicine";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="mb-4 text-dark fw-bold">Edit Here</h2>
+
+@using (Html.BeginForm("Edit", "Medicine", FormMethod.Post, new { enctype = "multipart/form-data", @class = "needs-validation" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.MedicineId)
+
+    <div class="card shadow-lg border-0 mb-4">
+        <div class="card-header bg-primary text-white fw-semibold">
+            Medicine Information
+        </div>
+        <div class="card-body">
+            <div class="row g-4">
+                <!-- Left side: Image -->
+                <div class="col-md-4 text-center border-end">
+                    <h6 class="fw-semibold mb-3">Medicine Image</h6>
+                    @if (!string.IsNullOrEmpty(Model.ImagePath))
+                    {
+                        <img src="@Url.Content(Model.ImagePath)" class="img-fluid rounded shadow-sm mb-3" style="max-height:220px;" />
+                    }
+                    else
+                    {
+                        <div class="border rounded d-flex align-items-center justify-content-center bg-light" style="height:220px;">
+                            <span class="text-muted">No Image Available</span>
+                        </div>
+                    }
+                    <input type="file" name="ImageFile" class="form-control mt-2" />
+                </div>
+
+                <!-- Right side: Fields -->
+                <div class="col-md-8">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            @Html.LabelFor(m => m.Name, new { @class = "form-label fw-semibold" })
+                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Medicine name" })
+                            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-6">
+                            @Html.LabelFor(m => m.CompanyName, new { @class = "form-label fw-semibold" })
+                            @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control", placeholder = "Company name" })
+                            @Html.ValidationMessageFor(m => m.CompanyName, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-6">
+                            @Html.LabelFor(m => m.Category, new { @class = "form-label fw-semibold" })
+                            @Html.TextBoxFor(m => m.Category, new { @class = "form-control", placeholder = "Category" })
+                            @Html.ValidationMessageFor(m => m.Category, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-4">
+                            @Html.LabelFor(m => m.Price, new { @class = "form-label fw-semibold" })
+                            <div class="input-group">
+                                <span class="input-group-text">৳</span>
+                                @Html.TextBoxFor(m => m.Price, new { @class = "form-control", type = "number", step = "0.01", placeholder = "0.00" })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-4">
+                            @Html.LabelFor(m => m.Stock, new { @class = "form-label fw-semibold" })
+                            @Html.TextBoxFor(m => m.Stock, new { @class = "form-control", type = "number", placeholder = "Quantity" })
+                            @Html.ValidationMessageFor(m => m.Stock, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-4">
+                            @Html.LabelFor(m => m.ExpiryDate, new { @class = "form-label fw-semibold" })
+                            @Html.TextBoxFor(m => m.ExpiryDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                            @Html.ValidationMessageFor(m => m.ExpiryDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-light d-flex justify-content-start gap-2">
+            <button type="submit" class="btn btn-success px-4">
+                ✔ Save Record
+            </button>
+            @Html.ActionLink("🏪 Back to Inventory", "Index", null, new { @class = "btn btn-outline-secondary px-4" })
+        </div>
+    </div>
+}

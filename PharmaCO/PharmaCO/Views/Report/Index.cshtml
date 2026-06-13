@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "Reports Dashboard";
+}
+
+<div class="container mt-4">
+    <h2 class="fw-bold text-primary mb-3">Reports Dashboard</h2>
+    <p class="text-muted">Select a report to view or filter sales data:</p>
+
+    <!-- Date filter form -->
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-light fw-semibold">Filter Sales Report</div>
+        <div class="card-body">
+            <form method="get" action="@Url.Action("SalesReport","Report")" class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Start Date</label>
+                    <input type="date" name="startDate" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">End Date</label>
+                    <input type="date" name="endDate" class="form-control" />
+                </div>
+                <div class="col-md-4 align-self-end">
+                    <button type="submit" class="btn btn-primary w-100 fw-semibold">Apply Filter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Report links -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <a href="@Url.Action("SalesReport","Report")" class="card shadow-sm border-0 text-decoration-none h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-chart-line fa-2x text-primary mb-2"></i>
+                    <h5 class="fw-bold text-primary">Sales Report</h5>
+                    <p class="text-muted mb-0">View sales performance and trends</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="@Url.Action("CustomerReport","Report")" class="card shadow-sm border-0 text-decoration-none h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-users fa-2x text-success mb-2"></i>
+                    <h5 class="fw-bold text-success">Customer Report</h5>
+                    <p class="text-muted mb-0">Analyze customer data and insights</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="@Url.Action("MedicineStockReport","Report")" class="card shadow-sm border-0 text-decoration-none h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-pills fa-2x text-danger mb-2"></i>
+                    <h5 class="fw-bold text-danger">Medicine Stock Report</h5>
+                    <p class="text-muted mb-0">Check inventory and stock levels</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Export buttons -->
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-light fw-semibold">Export Sales Report</div>
+        <div class="card-body d-flex gap-2">
+            <a href="@Url.Action("ExportSalesReportPdf","Report")" class="btn btn-danger fw-semibold flex-fill">
+                <i class="fas fa-file-pdf me-2"></i> Export to PDF
+            </a>
+            <a href="@Url.Action("ExportSalesReportExcel","Report")" class="btn btn-success fw-semibold flex-fill">
+                <i class="fas fa-file-excel me-2"></i> Export to Excel
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    h2 {
+        letter-spacing: 0.5px;
+    }
+
+    .card:hover {
+        transform: translateY(-4px);
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+</style>

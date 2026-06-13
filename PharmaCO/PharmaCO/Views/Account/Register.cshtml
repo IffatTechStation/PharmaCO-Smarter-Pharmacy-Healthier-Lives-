@@ -1,0 +1,69 @@
+﻿@model PharmaCO.Models.RegisterViewModel
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0 rounded">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4 class="mb-0">🧾 Create New Account</h4>
+                </div>
+                <div class="card-body p-4">
+                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.Email, new { @class = "form-label fw-semibold" })
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Enter email address" })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.Password, new { @class = "form-label fw-semibold" })
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Enter password" })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "form-label fw-semibold" })
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm password" })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.Role, new { @class = "form-label fw-semibold" })
+                            @Html.DropDownListFor(m => m.Role,
+                                new SelectList(new[] { "Owner", "SalesMan" }),
+                                "Select role",
+                                new { @class = "form-select" })
+                            @Html.ValidationMessageFor(m => m.Role, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary fw-semibold">
+                                <i class="bi bi-person-plus"></i> Register
+                            </button>
+                        </div>
+                    }
+                </div>
+                <div class="card-footer text-center text-muted small">
+                    Already have an account? @Html.ActionLink("Login here", "Login", "Account")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

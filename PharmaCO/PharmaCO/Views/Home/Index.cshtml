@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Hero Section -->
+<section class="py-5 text-center bg-white border-bottom">
+    <div class="container">
+        <h1 class="fw-bold text-dark mb-2">PharmaCO</h1>
+        <p class="text-muted mb-4">Smart & Simple Pharmacy Management</p>
+    </div>
+</section>
+
+<!-- Shortcut Tiles -->
+<div class="container mt-5">
+    <div class="row g-4 text-center">
+        <!-- Customers -->
+        <div class="col-md-4">
+            <div class="p-4 bg-light rounded shadow-sm h-100 hover-tile">
+                <i class="fas fa-users fa-2x text-primary mb-3"></i>
+                <h5 class="fw-bold text-primary">Customers</h5>
+                <p class="text-muted small">Manage customer records and contacts.</p>
+                @Html.ActionLink("Open Customers", "Index", "Customer", null, new { @class = "btn btn-outline-primary btn-sm" })
+            </div>
+        </div>
+
+        <!-- Medicines -->
+        <div class="col-md-4">
+            <div class="p-4 bg-light rounded shadow-sm h-100 hover-tile">
+                <i class="fas fa-pills fa-2x text-success mb-3"></i>
+                <h5 class="fw-bold text-success">Medicines</h5>
+                <p class="text-muted small">Track stock levels and expiry dates.</p>
+                @Html.ActionLink("Open Medicines", "Index", "Medicine", null, new { @class = "btn btn-outline-success btn-sm" })
+            </div>
+        </div>
+
+        <!-- Reports (Owner only) -->
+        @if (User.IsInRole("Owner"))
+        {
+            <div class="col-md-4">
+                <div class="p-4 bg-light rounded shadow-sm h-100 hover-tile">
+                    <i class="fas fa-chart-line fa-2x text-info mb-3"></i>
+                    <h5 class="fw-bold text-info">Reports</h5>
+                    <p class="text-muted small">View sales reports and analytics.</p>
+                    @Html.ActionLink("Open Reports", "Index", "Report", null, new { @class = "btn btn-outline-info btn-sm" })
+                </div>
+            </div>
+        }
+
+        <!-- SalesMan Shortcuts -->
+        @if (User.IsInRole("SalesMan"))
+        {
+            <div class="col-md-4">
+                <div class="p-4 bg-light rounded shadow-sm h-100 hover-tile">
+                    <i class="fas fa-shopping-basket fa-2x text-warning mb-3"></i>
+                    <h5 class="fw-bold text-warning">Quick Orders</h5>
+                    <p class="text-muted small">Create and manage customer orders quickly.</p>
+                    @Html.ActionLink("Open Orders", "Index", "Order", null, new { @class = "btn btn-outline-warning btn-sm" })
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+
+<style>
+    .hover-tile {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .hover-tile:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+        }
+</style>

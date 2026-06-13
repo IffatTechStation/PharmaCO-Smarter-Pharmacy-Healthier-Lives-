@@ -1,0 +1,51 @@
+﻿@model PharmaCO.Models.Customer
+@{
+    ViewBag.Title = "Add Customer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="mb-4 text-primary fw-bold">➕ Add Customer</h2>
+
+@using (Html.BeginForm("Create", "Customer", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row g-3">
+        <div class="col-md-6">
+            <div class="form-floating">
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Full Name" })
+                @Html.LabelFor(m => m.Name)
+            </div>
+            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger small" })
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-floating">
+                @Html.TextBoxFor(m => m.Age, new { @class = "form-control", type = "number", placeholder = "Age" })
+                @Html.LabelFor(m => m.Age)
+            </div>
+            @Html.ValidationMessageFor(m => m.Age, "", new { @class = "text-danger small" })
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-floating">
+                @Html.TextBoxFor(m => m.Contact, new { @class = "form-control", placeholder = "Contact Number" })
+                @Html.LabelFor(m => m.Contact)
+            </div>
+            @Html.ValidationMessageFor(m => m.Contact, "", new { @class = "text-danger small" })
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-floating">
+                @Html.TextBoxFor(m => m.Address, new { @class = "form-control", placeholder = "Address" })
+                @Html.LabelFor(m => m.Address)
+            </div>
+            @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger small" })
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-primary px-4">💾 Save</button>
+        @Html.ActionLink("⬅ Back to List", "Index", null, new { @class = "btn btn-outline-secondary ms-2 px-4" })
+    </div>
+}

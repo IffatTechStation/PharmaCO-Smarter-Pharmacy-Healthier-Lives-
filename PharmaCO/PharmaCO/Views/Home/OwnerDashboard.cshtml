@@ -1,0 +1,132 @@
+﻿@{
+    ViewBag.Title = "Owner Dashboard";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 fw-bold text-dark">Owner Dashboard</h2>
+
+    <!-- Summary Cards -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100 text-center">
+                <div class="card-body">
+                    <i class="fas fa-users fa-2x text-primary mb-3"></i>
+                    <h5 class="fw-bold text-primary">Customers</h5>
+                    <h2 class="fw-bold">@ViewBag.CustomerCount</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100 text-center">
+                <div class="card-body">
+                    <i class="fas fa-pills fa-2x text-success mb-3"></i>
+                    <h5 class="fw-bold text-success">Medicines</h5>
+                    <h2 class="fw-bold">@ViewBag.MedicineCount</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100 text-center">
+                <div class="card-body">
+                    <i class="fas fa-shopping-cart fa-2x text-warning mb-3"></i>
+                    <h5 class="fw-bold text-warning">Orders</h5>
+                    <h2 class="fw-bold">@ViewBag.OrderCount</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100 text-center">
+                <div class="card-body">
+                    <i class="fas fa-exclamation-triangle fa-2x text-danger mb-3"></i>
+                    <h5 class="fw-bold text-danger">Low Stock Alerts</h5>
+                    <h2 class="fw-bold">@ViewBag.LowStockCount</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Low Stock Medicines -->
+    <div class="card shadow-sm mb-5">
+        <div class="card-header bg-danger text-white fw-bold">
+            Low Stock Medicines
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0 align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Company</th>
+                            <th>Stock</th>
+                            <th>Reorder Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var med in ViewBag.LowStockMedicines)
+                        {
+                            <tr>
+                                <td>@med.Name</td>
+                                <td>@med.CompanyName</td>
+                                <td class="text-danger fw-bold">@med.Stock</td>
+                                <td>@med.ReorderLevel</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sales Chart -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-info text-white fw-bold">
+            Sales Overview (Last 6 Months)
+        </div>
+        <div class="card-body">
+            <canvas id="salesChart" height="120"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Chart.js Script -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('salesChart').getContext('2d');
+    var salesChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: @Html.Raw(ViewBag.SalesMonthsJson),
+            datasets: [{
+                label: 'Orders',
+                data: @Html.Raw(ViewBag.SalesDataJson),
+                borderColor: '#17a2b8',
+                backgroundColor: 'rgba(23,162,184,0.2)',
+                fill: true,
+                tension: 0.3,
+                pointRadius: 4,
+                pointBackgroundColor: '#17a2b8'
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: true }
+            },
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+</script>
+
+<style>
+    h2 {
+        letter-spacing: 0.5px;
+    }
+
+    .card:hover {
+        transform: translateY(-4px);
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+</style>

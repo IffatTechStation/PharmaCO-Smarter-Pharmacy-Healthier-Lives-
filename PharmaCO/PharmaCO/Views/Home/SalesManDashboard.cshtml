@@ -1,0 +1,141 @@
+﻿@using Newtonsoft.Json
+
+@{
+    ViewBag.Title = "SalesMan Dashboard";
+}
+
+<div class="container mt-4">
+    <h2 class="fw-bold text-dark mb-4">SalesMan Dashboard</h2>
+
+    <!-- Quick Actions -->
+    <div class="mb-4">
+        <a href="@Url.Action("Create","Order")" class="btn btn-primary me-2">➕ New Order</a>
+        <a href="@Url.Action("Index","Customer")" class="btn btn-secondary me-2">🔍 Search Customer</a>
+        <a href="@Url.Action("Create","Medicine")" class="btn btn-success">💊 Add Medicine</a>
+    </div>
+
+    <!-- Performance Metrics -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm text-center">
+                <div class="card-body">
+                    <h6 class="text-muted">Today’s Orders</h6>
+                    <p class="display-6 fw-bold text-primary">@ViewBag.TodayOrders</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm text-center">
+                <div class="card-body">
+                    <h6 class="text-muted">Total Orders</h6>
+                    <p class="display-6 fw-bold text-info">@ViewBag.OrderCount</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm text-center">
+                <div class="card-body">
+                    <h6 class="text-muted">Low Stock Alerts</h6>
+                    <p class="display-6 fw-bold text-danger">@((ViewBag.LowStockMedicines as List<PharmaCO.ViewModels.MedicineViewModel>)?.Count ?? 0)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sales Trend Chart -->
+    <div class="mb-5">
+        <h4 class="fw-bold text-secondary mb-3">Sales Trend (Last 7 Days)</h4>
+        <canvas id="salesTrendChart" height="120"></canvas>
+    </div>
+
+    <!-- Recent Orders -->
+    <h4 class="fw-bold text-secondary mb-3">Recent Orders</h4>
+    <div class="table-responsive mb-4">
+        <table class="table table-hover align-middle shadow-sm">
+            <thead class="table-light">
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Date</th>
+                    <th>Total Items</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in ViewBag.RecentOrders)
+                {
+                    <tr>
+                        <td class="fw-bold">@order.OrderId</td>
+                        <td>@order.CustomerName</td>
+                        <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
+                        <td>@order.Items.Count</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Low Stock Medicines -->
+    <h4 class="fw-bold text-secondary mb-3">Low Stock Medicines</h4>
+    <div class="table-responsive mb-4">
+        <table class="table table-hover align-middle shadow-sm">
+            <thead class="table-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Stock</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var med in ViewBag.LowStockMedicines)
+                {
+                    <tr>
+                        <td>@med.Name</td>
+                        <td class="text-danger fw-bold">@med.Stock</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('salesTrendChart').getContext('2d');
+    const salesTrendChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: @Html.Raw(JsonConvert.SerializeObject(ViewBag.SalesTrendDates)),
+            datasets: [{
+                label: 'Orders',
+                data: @Html.Raw(JsonConvert.SerializeObject(ViewBag.SalesTrendCounts)),
+                borderColor: '#0069d9',
+                backgroundColor: 'rgba(0,105,217,0.1)',
+                fill: true,
+                tension: 0.3,
+                pointRadius: 4,
+                pointBackgroundColor: '#0069d9'
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+</script>
+
+<style>
+    h2, h4 {
+        letter-spacing: 0.5px;
+    }
+
+    .card:hover {
+        transform: translateY(-4px);
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+</style>

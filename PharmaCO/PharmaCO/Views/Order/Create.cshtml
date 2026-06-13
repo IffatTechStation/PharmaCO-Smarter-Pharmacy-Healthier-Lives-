@@ -1,0 +1,342 @@
+﻿@model PharmaCO.ViewModels.OrderViewModel
+@{
+    ViewBag.Title = "Create Order";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2>Create Order</h2>
+    <a class="btn btn-secondary mb-3" href="@Url.Action("Index","Order")">Back</a>
+
+    @using (Html.BeginForm("Create", "Order", FormMethod.Post, new { id = "orderForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label>Customer</label>
+                @Html.TextBox("CustomerName", null, new { @class = "form-control", id = "customerInput", placeholder = "Type customer name..." })
+                @Html.HiddenFor(m => m.CustomerId, new { id = "CustomerId" })
+                @Html.ValidationMessageFor(m => m.CustomerId, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-3">
+                <label>Order Date</label>
+                @Html.TextBoxFor(m => m.OrderDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                @Html.ValidationMessageFor(m => m.OrderDate, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-3 d-flex align-items-center">
+                <div class="form-check mt-4">
+                    @Html.CheckBoxFor(m => m.IsPaid, new { @class = "form-check-input" })
+                    @Html.LabelFor(m => m.IsPaid, "Paid?", new { @class = "form-check-label" })
+                </div>
+            </div>
+        </div>
+
+    
+
+        <h5>Order Items</h5>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="itemsTable">
+                <thead class="table-light">
+                    <tr>
+                        <th>Medicine</th>
+                        <th style="width:110px">Qty</th>
+                        <th style="width:140px">Unit Price</th>
+                        <th style="width:140px">Total</th>
+                        <th style="width:80px">Image</th>
+                        <th style="width:100px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Items != null && Model.Items.Any())
+                    {
+                        for (int i = 0; i < Model.Items.Count; i++)
+                        {
+                            ViewData["Index"] = i;
+                            @Html.Partial("_OrderItemRow", Model.Items[i])
+                        }
+                    }
+                    else
+                    {
+                        ViewData["Index"] = 0;
+                        var empty = new PharmaCO.ViewModels.OrderItemViewModel { Quantity = 1 };
+                        @Html.Partial("_OrderItemRow", empty)
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-end align-middle"><strong>Grand Total</strong></td>
+                        <td class="align-middle">
+                            <input id="grandTotal" name="GrandTotalDisplay" type="text" class="form-control" readonly value="৳ 0.00" />
+                            <input type="hidden" id="GrandTotal" name="GrandTotal" value="0.00" />
+                        </td>
+                        <td colspan="2"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="mb-3 d-flex gap-2">
+            <button type="button" id="addRowBtn" class="btn btn-secondary">Add Product</button>
+            <button type="submit" class="btn btn-primary">Place Order</button>
+        </div>
+    }
+</div>
+
+@section scripts {
+    <script>
+    (function () {
+        var searchCustomersUrl = '@Url.Action("SearchCustomers", "Order")';
+        var searchMedicinesUrl = '@Url.Action("SearchMedicines", "Order")';
+        var getItemRowUrl = '@Url.Action("GetItemRow", "Order")';
+
+        function parseCurrencyToNumber(text) {
+            if (!text) return 0;
+            var cleaned = String(text).replace(/[^\d\.\-]/g, '');
+            var n = parseFloat(cleaned);
+            return isNaN(n) ? 0 : n;
+        }
+        function formatTaka(n) {
+            return '৳ ' + Number(n || 0).toFixed(2);
+        }
+
+        var itemsTable = document.getElementById('itemsTable');
+        var grandTotalEl = document.getElementById('grandTotal');
+        var grandTotalHidden = document.getElementById('GrandTotal');
+        var addRowBtn = document.getElementById('addRowBtn');
+
+        function updateRowTotals(row) {
+            if (!row) return;
+            var qtyEl = row.querySelector('.qty-input');
+            var unitHidden = row.querySelector('.unit-price-hidden');
+            var unitDisplay = row.querySelector('.unit-price');
+            var totalDisplay = row.querySelector('.total-price');
+            var totalHidden = row.querySelector('.total-hidden');
+
+            if (!unitHidden) {
+                unitHidden = document.createElement('input');
+                unitHidden.type = 'hidden';
+                unitHidden.className = 'unit-price-hidden';
+                unitHidden.value = '0.00';
+                row.appendChild(unitHidden);
+            }
+            if (!totalHidden) {
+                totalHidden = document.createElement('input');
+                totalHidden.type = 'hidden';
+                totalHidden.className = 'total-hidden';
+                totalHidden.value = '0.00';
+                row.appendChild(totalHidden);
+            }
+
+            var qty = parseInt(qtyEl && qtyEl.value) || 0;
+            var unit = parseFloat(unitHidden.value || 0) || 0;
+            var total = qty * unit;
+
+            if (totalDisplay) totalDisplay.value = formatTaka(total);
+            if (totalHidden) totalHidden.value = total.toFixed(2);
+        }
+
+        function updateGrandTotal() {
+            var total = 0;
+            if (!itemsTable) return;
+            var rows = itemsTable.querySelectorAll('tbody tr');
+            rows.forEach(function (row) {
+                var th = row.querySelector('.total-hidden');
+                if (th && th.value) total += parseFloat(th.value) || 0;
+            });
+            if (grandTotalEl) grandTotalEl.value = formatTaka(total);
+            if (grandTotalHidden) grandTotalHidden.value = total.toFixed(2);
+        }
+
+        function initRow(row) {
+            if (!row.querySelector('.unit-price-hidden')) {
+                var uh = document.createElement('input');
+                uh.type = 'hidden';
+                uh.className = 'unit-price-hidden';
+                uh.value = '0.00';
+                row.appendChild(uh);
+            }
+            if (!row.querySelector('.total-hidden')) {
+                var th = document.createElement('input');
+                th.type = 'hidden';
+                th.className = 'total-hidden';
+                th.value = '0.00';
+                row.appendChild(th);
+            }
+            var qty = row.querySelector('.qty-input');
+            if (qty && (!qty.value || qty.value === '0')) qty.value = 1;
+
+            var unitDisplay = row.querySelector('.unit-price');
+            var unitHidden = row.querySelector('.unit-price-hidden');
+            if (unitDisplay && unitDisplay.value && unitHidden && (!unitHidden.value || unitHidden.value === '0')) {
+                unitHidden.value = parseCurrencyToNumber(unitDisplay.value).toFixed(2);
+            }
+
+            var img = row.querySelector('.img-preview');
+            if (img) {
+                var src = img.getAttribute('src') || '';
+                if (!src || src.indexOf('no-image') !== -1) img.style.display = 'none';
+                else img.style.display = '';
+            }
+
+            updateRowTotals(row);
+        }
+
+        function initExistingRows() {
+            if (!itemsTable) return;
+            var rows = itemsTable.querySelectorAll('tbody tr');
+            rows.forEach(initRow);
+            updateGrandTotal();
+        }
+
+        document.addEventListener('input', function (e) {
+            var target = e.target;
+            if (target && target.classList && target.classList.contains('qty-input')) {
+                var row = target.closest('tr');
+                updateRowTotals(row);
+                updateGrandTotal();
+            }
+        });
+
+        document.addEventListener('click', function (e) {
+            var target = e.target;
+            if (target && target.classList && target.classList.contains('remove-row')) {
+                var row = target.closest('tr');
+                if (row) {
+                    row.parentNode.removeChild(row);
+                    updateGrandTotal();
+                }
+            }
+        });
+
+        if (addRowBtn) {
+            addRowBtn.addEventListener('click', function () {
+                var tbody = itemsTable.querySelector('tbody');
+                var idx = tbody.querySelectorAll('tr').length;
+                fetch(getItemRowUrl + '?index=' + idx)
+                    .then(function (res) { return res.text(); })
+                    .then(function (html) {
+                        var temp = document.createElement('tbody');
+                        temp.innerHTML = html;
+                        var appended = [];
+                        Array.from(temp.children).forEach(function (node) {
+                            tbody.appendChild(node);
+                            appended.push(node);
+                        });
+                        setTimeout(function () {
+                            appended.forEach(initRow);
+                            updateGrandTotal();
+                        }, 50);
+                    })
+                    .catch(function (err) { console.error('Failed to add row', err); });
+            });
+        }
+
+        if (window.jQuery && jQuery.ui) {
+            $(function () {
+                $("#customerInput").autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: searchCustomersUrl,
+                            data: { term: request.term },
+                            success: function (data) {
+                                response($.map(data, function (item) {
+                                    return { label: item.label, value: item.value, id: item.id };
+                                }));
+                            }
+                        });
+                    },
+                    minLength: 1,
+                    select: function (event, ui) {
+                        $("#customerInput").val(ui.item.label);
+                        $("#CustomerId").val(ui.item.id);
+                        return false;
+                    }
+                });
+
+                $(document).on('focus', '.medicine-input', function () {
+                    var el = this;
+                    if (!$(el).data('ui-autocomplete')) {
+                        $(el).autocomplete({
+                            source: function (request, response) {
+                                $.ajax({
+                                    url: searchMedicinesUrl,
+                                    data: { term: request.term },
+                                    success: function (data) {
+                                        response($.map(data, function (item) {
+                                            return {
+                                                label: item.label,
+                                                value: item.label,
+                                                id: item.id,
+                                                price: item.price,
+                                                imagePath: item.imagePath
+                                            };
+                                        }));
+                                    }
+                                });
+                            },
+                            minLength: 1,
+                            select: function (event, ui) {
+                                var $input = $(this);
+                                var $row = $input.closest('tr');
+
+                                // set visible name explicitly
+                                $input.val(ui.item.label || ui.item.value || '');
+
+                                // set medicine id
+                                $row.find('.medicine-id').val(ui.item.id);
+
+                                // unit price hidden + display
+                                var priceVal = ui.item.price != null ? parseFloat(ui.item.price) : 0;
+                                if ($row.find('.unit-price-hidden').length === 0) {
+                                    $row.append('<input type="hidden" class="unit-price-hidden" value="0.00" />');
+                                }
+                                $row.find('.unit-price-hidden').val(priceVal.toFixed(2));
+                                if ($row.find('.unit-price').length === 0) {
+                                    $row.append('<input type="text" class="form-control unit-price" readonly />');
+                                }
+                                $row.find('.unit-price').val(formatTaka(priceVal));
+
+                                // total
+                                var qty = parseInt($row.find('.qty-input').val()) || 1;
+                                var total = priceVal * qty;
+                                if ($row.find('.total-hidden').length === 0) {
+                                    $row.append('<input type="hidden" class="total-hidden" value="0.00" />');
+                                }
+                                if ($row.find('.total-price').length === 0) {
+                                    $row.append('<input type="text" class="form-control total-price" readonly />');
+                                }
+                                $row.find('.total-price').val(formatTaka(total));
+                                $row.find('.total-hidden').val(total.toFixed(2));
+
+                                // image preview
+                                var imgEl = $row.find('.img-preview');
+                                var imgPath = ui.item.imagePath || '@Url.Content("~/images/no-image.png")';
+                                try { imgPath = encodeURI(imgPath); } catch (e) {}
+                                if (imgEl.length === 0) {
+                                    $row.find('td').eq(4).html('<img class="img-preview" style="max-width:60px; max-height:60px; display:none;" />');
+                                    imgEl = $row.find('.img-preview');
+                                }
+                                imgEl.attr('src', imgPath).show();
+
+                                updateGrandTotal();
+                                return false;
+                            }
+                        }).autocomplete("instance")._renderItem = function (ul, item) {
+                            var img = item.imagePath ? "<img src='" + item.imagePath + "' style='max-width:40px; margin-right:8px;'/>" : "";
+                            return $("<li>").append("<div style='display:flex; align-items:center; gap:8px;'>" + img + "<div><strong>" + item.label + "</strong><br/><small>৳ " + (item.price != null ? Number(item.price).toFixed(2) : "0.00") + "</small></div></div>").appendTo(ul);
+                        };
+                    }
+                });
+            });
+        } else {
+            console.warn('jQuery UI autocomplete not available.');
+        }
+
+        initExistingRows();
+    })();
+    </script>
+}
+

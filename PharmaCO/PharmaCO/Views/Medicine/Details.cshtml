@@ -1,0 +1,109 @@
+﻿@model PharmaCO.Models.Medicine
+@{
+    ViewBag.Title = "Medicine Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    bool isExpired = Model?.ExpiryDate != null && Model.ExpiryDate < DateTime.Today;
+    // Format price with Taka sign
+    string priceText = Model != null ? String.Format("৳{0:N2}", Model.Price) : "-";
+    string imageUrl = Model != null && !string.IsNullOrEmpty(Model.ImagePath) ? Url.Content(Model.ImagePath) : null;
+
+    var isOwner = User.IsInRole("Owner");
+    var isSalesMan = User.IsInRole("SalesMan");
+}
+
+<h2 class="mb-3">💊 Medicine Details</h2>
+
+<div class="card shadow-sm mb-4">
+    <div class="row g-0">
+        <!-- Image column -->
+        <div class="col-12 col-md-4">
+            @if (!string.IsNullOrEmpty(imageUrl))
+            {
+                <img src="@imageUrl" alt="@Model.Name" class="img-fluid w-100" style="height:100%; object-fit:cover; display:block;" />
+            }
+            else
+            {
+                <div class="d-flex align-items-center justify-content-center bg-light" style="height:100%; min-height:220px;">
+                    <span class="text-muted">No Image Available</span>
+                </div>
+            }
+        </div>
+
+        <!-- Details column -->
+        <div class="col-12 col-md-8">
+            <div class="card-body d-flex flex-column h-100">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h3 class="card-title mb-0" style="word-break:break-word;">@Model.Name</h3>
+                    <div class="text-end">
+                        @if (isExpired)
+                        {
+                            <span class="badge bg-warning text-dark me-1">Expired</span>
+                        }
+                        @if (Model.Stock < 10)
+                        {
+                            <span class="badge bg-danger">Low Stock</span>
+                        }
+                    </div>
+                </div>
+
+                <dl class="row mb-3">
+                    <dt class="col-sm-4 fw-semibold">Company</dt>
+                    <dd class="col-sm-8">@(!string.IsNullOrEmpty(Model.CompanyName) ? Model.CompanyName : "-")</dd>
+
+                    <dt class="col-sm-4 fw-semibold">Category</dt>
+                    <dd class="col-sm-8">@(!string.IsNullOrEmpty(Model.Category) ? Model.Category : "-")</dd>
+
+                    <dt class="col-sm-4 fw-semibold">Price</dt>
+                    <dd class="col-sm-8">@priceText</dd>
+
+                    <dt class="col-sm-4 fw-semibold">Stock</dt>
+                    <dd class="col-sm-8">@Model.Stock</dd>
+
+                    <dt class="col-sm-4 fw-semibold">Expiry Date</dt>
+                    <dd class="col-sm-8">@Model.ExpiryDate?.ToString("yyyy-MM-dd") ?? "-"</dd>
+                </dl>
+
+                <p class="mb-0 text-muted" style="font-size:0.95rem;">
+                    <strong>Medicine ID:</strong> @Model.MedicineId
+                </p>
+
+                @if (isSalesMan && !isOwner)
+                {
+                    <div class="alert alert-info mt-3">
+                        You have view-only access. Contact the owner for edits or deletions.
+                    </div>
+                }
+
+                <div class="mt-auto pt-3 d-flex flex-wrap gap-2">
+                    <a class="btn btn-secondary btn-sm" href="@Url.Action("Index", "Medicine")">⬅ Back to List</a>
+
+                    @if (isOwner)
+                    {
+                        <a class="btn btn-warning btn-sm" href="@Url.Action("Edit", "Medicine", new { id = Model.MedicineId })">✏️ Edit</a>
+                        @Html.ActionLink("🗑️ Delete", "Delete", new { id = Model.MedicineId }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure you want to delete this medicine?');" })
+                    }
+
+                    @if (isSalesMan && !isOwner)
+                    {
+                        <a class="btn btn-success btn-sm" href="@Url.Action("Create", "Order", new { medicineId = Model.MedicineId })">🛒 Create Order</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        // small enhancement: ensure image containers keep consistent height on small screens
+        (function () {
+            var img = document.querySelector('.card img.img-fluid');
+            if (!img) return;
+            img.addEventListener('error', function () {
+                var parent = img.closest('.col-12');
+                if (parent) parent.querySelector('img')?.remove();
+            });
+        })();
+    </script>
+}

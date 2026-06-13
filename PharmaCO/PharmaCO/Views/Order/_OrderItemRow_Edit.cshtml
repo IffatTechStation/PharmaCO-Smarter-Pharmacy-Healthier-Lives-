@@ -1,0 +1,40 @@
+﻿@model PharmaCO.ViewModels.OrderItemViewModel
+@{
+    var index = ViewData["Index"] ?? 0;
+}
+
+<tr>
+    <td>
+        @* Visible autocomplete input *@
+        <input type="text" name="Items[@index].MedicineName" value="@(Model.MedicineName ?? "")"
+               class="form-control medicine-input" placeholder="Search medicine..." autocomplete="off" />
+
+        @* Hidden input that actually binds to model on POST *@
+        @Html.Hidden($"Items[{index}].MedicineId", Model.MedicineId, new { @class = "medicine-id" })
+
+        @Html.ValidationMessage($"Items[{index}].MedicineId", "", new { @class = "text-danger" })
+    </td>
+
+    <td>
+        @Html.TextBox($"Items[{index}].Quantity", Model.Quantity, new { @class = "form-control qty-input", type = "number", min = "1" })
+        @Html.ValidationMessage($"Items[{index}].Quantity", "", new { @class = "text-danger" })
+    </td>
+
+    <td>
+        @Html.Hidden($"Items[{index}].UnitPrice", Model.UnitPrice)
+        <input type="text" class="form-control unit-price" readonly value="@(Model.UnitPrice>0? "৳ "+Model.UnitPrice.ToString("0.00") : "৳ 0.00")" />
+    </td>
+
+    <td>
+        @Html.Hidden($"Items[{index}].TotalPrice", Model.TotalPrice)
+        <input type="text" class="form-control total-price" readonly value="@(Model.TotalPrice>0? "৳ "+Model.TotalPrice.ToString("0.00") : "৳ 0.00")" />
+    </td>
+
+    <td class="text-center">
+        <img class="img-preview" style="max-height:60px; display:@(Model.MedicineId>0? "inline-block":"none");" src="@(Model.ImagePath ?? "")" alt="preview" />
+    </td>
+
+    <td class="text-center">
+        <button type="button" class="btn btn-danger btn-sm remove-row">X</button>
+    </td>
+</tr>

@@ -1,0 +1,88 @@
+﻿@using PharmaCO.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center align-items-center">
+        <!-- Left: Login form -->
+        <div class="col-lg-6">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-primary text-white text-center rounded-top-4">
+                    <h3 class="mb-0">🔐 Pharmacy Login</h3>
+                </div>
+                <div class="card-body p-4">
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.Email, new { @class = "form-label fw-semibold" })
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control rounded-end", placeholder = "Enter your email" })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.Password, new { @class = "form-label fw-semibold" })
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control rounded-end", placeholder = "Enter your password" })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <!-- Remember Me -->
+                        <div class="form-check mb-3">
+                            @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-check-input" })
+                            @Html.LabelFor(m => m.RememberMe, new { @class = "form-check-label" })
+                        </div>
+
+                        <!-- Submit -->
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-primary btn-lg rounded-pill fw-semibold">
+                                <i class="bi bi-box-arrow-in-right"></i> Log in
+                            </button>
+                        </div>
+
+                        <!-- Links -->
+                        <div class="text-center">
+                            @Html.ActionLink("Register as a new user", "Register", null, new { @class = "text-decoration-none text-primary fw-semibold" })
+                            <br />
+                            @Html.ActionLink("Forgot your password?", "ForgotPassword", null, new { @class = "text-decoration-none text-secondary" })
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Illustration / tagline -->
+        <div class="col-lg-5 mt-4 mt-lg-0 text-center">
+            <img src="~/Content/PharmaCO.jpg" alt="Pharmacy illustration" class="img-fluid mb-3" style="max-height:280px;" />
+            <h5 class="text-muted">Welcome to PharmaCO — manage your medicines, sales & reports securely.</h5>
+        </div>
+    </div>
+
+    <!-- Social Login
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-6">
+                <div class="card shadow-sm border-0 rounded-4">
+                    <div class="card-body text-center">
+                        <h6 class="text-secondary mb-3">Or log in with</h6>
+                        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

@@ -1,0 +1,208 @@
+﻿@model PharmaCO.ViewModels.OrderViewModel
+@{
+    Layout = null;
+    var items = Model?.Items ?? Enumerable.Empty<PharmaCO.ViewModels.OrderItemViewModel>();
+    decimal subTotal = items.Sum(i => i.TotalPrice);
+    decimal taxRate = 0.00m; // প্রয়োজনে পরিবর্তন করো
+    decimal taxAmount = Math.Round(subTotal * taxRate, 2);
+    decimal grandTotal = subTotal + taxAmount;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Invoice - @Model.OrderId</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+            padding: 24px;
+            color: #212529;
+        }
+
+        .invoice-wrap {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .invoice-header, .invoice-footer {
+            padding: 18px 24px;
+            border-bottom: 1px solid #e9eef8;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .invoice-footer {
+            border-top: 1px solid #e9eef8;
+            border-bottom: none;
+        }
+
+        .title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0d6efd;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .meta {
+            text-align: right;
+            font-size: 0.9rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            margin-left: 6px;
+        }
+
+        .bg-success {
+            background: #198754;
+            color: #fff;
+        }
+
+        .bg-danger {
+            background: #dc3545;
+            color: #fff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #e9eef8;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: #f8fbff;
+            text-align: left;
+            color: #0b3a66;
+        }
+
+        td.text-right {
+            text-align: right;
+        }
+
+        .totals {
+            margin-top: 12px;
+            text-align: right;
+        }
+
+            .totals div {
+                margin: 4px 0;
+            }
+
+        .grand {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #0b3a66;
+        }
+
+        .actions a {
+            margin-left: 8px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: #0d6efd;
+            color: #fff;
+        }
+
+        .btn-outline {
+            border: 1px solid #0d6efd;
+            color: #0d6efd;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-wrap">
+        <header class="invoice-header">
+            <div>
+                <div class="title">PharmaCO</div>
+                <div class="subtitle">Invoice #@Model.OrderId</div>
+            </div>
+            <div class="meta">
+                <div><strong>Customer:</strong> @Model.CustomerName</div>
+                <div><strong>Date:</strong> @Model.OrderDate.ToString("dd MMM yyyy")</div>
+                <div>
+                    <strong>Status:</strong>
+                    <span class="badge @(Model.IsPaid ? "bg-success" : "bg-danger")">
+                        @(Model.IsPaid ? "Paid" : "Unpaid")
+                    </span>
+                </div>
+            </div>
+        </header>
+
+        <section style="padding:18px 24px;">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:50%;">Medicine</th>
+                        <th style="width:15%;">Qty</th>
+                        <th style="width:15%;">Unit Price</th>
+                        <th style="width:20%;" class="text-right">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var it in items)
+                    {
+                        <tr>
+                            <td>@it.MedicineName</td>
+                            <td>@it.Quantity</td>
+                            <td>৳ @it.UnitPrice.ToString("N2")</td>
+                            <td class="text-right">৳ @it.TotalPrice.ToString("N2")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="totals">
+                <div>Subtotal: ৳ @subTotal.ToString("N2")</div>
+                <div>Tax (@(taxRate * 100)%): ৳ @taxAmount.ToString("N2")</div>
+                <div class="grand">
+                    Grand Total: ৳ @grandTotal.ToString("N2")
+                    <span class="badge @(Model.IsPaid ? "bg-success" : "bg-danger")">
+                        @(Model.IsPaid ? "Paid" : "Unpaid")
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <footer class="invoice-footer">
+            <div style="font-size:0.85rem; color:#6c757d;">
+                Payment due on receipt. Please keep this invoice for your records.
+            </div>
+            <div class="actions">
+                <a class="btn-outline" href="javascript:window.print()">Print</a>
+                <a class="btn-primary" href="@Url.Action("Invoice","Order", new { id = Model.OrderId })" target="_blank">Open Invoice</a>
+                <a class="btn-secondary" href="@Url.Action("Index","Order")">Back to Orders</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

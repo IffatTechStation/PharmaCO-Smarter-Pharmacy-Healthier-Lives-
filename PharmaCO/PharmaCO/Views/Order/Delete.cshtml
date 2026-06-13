@@ -1,0 +1,27 @@
+﻿@model PharmaCO.ViewModels.OrderViewModel
+
+@{
+    ViewBag.Title = "Delete Order";
+}
+
+<h2>Delete Order</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Customer</dt>
+        <dd>@Model.CustomerName</dd>
+
+        <dt>Order Date</dt>
+        <dd>@Model.OrderDate.ToShortDateString()</dd>
+    </dl>
+
+    @using (Html.BeginForm("Delete", "Order", new { id = Model.OrderId }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <input type="submit" value="Delete" class="btn btn-danger" /> 
+@Html.ActionLink("Back to List", "Index")
+}
+</div>

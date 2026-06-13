@@ -1,0 +1,135 @@
+﻿@model PagedList.IPagedList<PharmaCO.ViewModels.CustomerReportViewModel>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Customer Report";
+}
+
+<div class="container mt-4">
+    <h2 class="fw-bold text-success mb-3">👥 Customer Report</h2>
+    <p class="text-muted">Search, sort, and analyze customer performance:</p>
+
+    <!-- Search + Sort -->
+    <form method="get" action="@Url.Action("CustomerReport","Report")" class="row g-3 mb-3">
+        <div class="col-md-6">
+            <input type="text" name="search" value="@ViewBag.Search"
+                   class="form-control" placeholder="🔍 Search customer name..." />
+        </div>
+        <div class="col-md-4">
+            <select name="sortOrder" class="form-select">
+                <option value="">Sort By</option>
+                <option value="orders_desc" @(ViewBag.SortOrder == "orders_desc" ? "selected" : "")>Orders ↓</option>
+                <option value="spent" @(ViewBag.SortOrder == "spent" ? "selected" : "")>Spent ↑</option>
+                <option value="spent_desc" @(ViewBag.SortOrder == "spent_desc" ? "selected" : "")>Spent ↓</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100 fw-semibold">Apply</button>
+        </div>
+    </form>
+
+    <!-- Table -->
+    <div class="card shadow-sm mb-3">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead class="table-success">
+                    <tr>
+                        <th>Customer</th>
+                        <th>Total Orders</th>
+                        <th>Total Spent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.CustomerName</td>
+                            <td>@item.TotalOrders</td>
+                            <td>৳ @item.TotalSpent.ToString("0.00")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pager-center">
+        <div class="custom-pager-wrap">
+            @Html.PagedListPager(Model,
+                page => Url.Action("CustomerReport", new { page, search = ViewBag.Search, sortOrder = ViewBag.SortOrder }),
+                new PagedListRenderOptions
+                {
+                    UlElementClasses = new[] { "custom-pager" },
+                    LiElementClasses = new[] { "page-item" },
+                    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                    DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                    LinkToPreviousPageFormat = "‹",
+                    LinkToNextPageFormat = "›",
+                    DisplayLinkToIndividualPages = true,
+                    MaximumPageNumbersToDisplay = 7
+                })
+        </div>
+    </div>
+
+    <a href="@Url.Action("Index","Report")" class="btn btn-secondary mt-3">⬅ Back to Reports</a>
+</div>
+
+<style>
+    h2 {
+        letter-spacing: 0.5px;
+    }
+
+    .custom-pager-wrap {
+        display: inline-flex;
+        background: #f5f6fb;
+        padding: 8px 12px;
+        border-radius: 999px;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .custom-pager {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: inline-flex;
+        align-items: center;
+    }
+
+        .custom-pager .page-item {
+            display: inline-block;
+        }
+
+        .custom-pager .page-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 0 4px;
+            color: #6c63ff;
+            background: transparent;
+            border: none;
+            font-weight: 600;
+        }
+
+            .custom-pager .page-link:hover {
+                background: #6c63ff;
+                color: #fff;
+                box-shadow: 0 4px 10px rgba(108,99,255,0.12);
+            }
+
+        .custom-pager .active .page-link {
+            background: #6c63ff;
+            color: #fff;
+            box-shadow: 0 6px 18px rgba(108,99,255,0.18);
+        }
+
+    .pager-center {
+        display: flex;
+        justify-content: center;
+        margin-top: 18px;
+    }
+</style>
